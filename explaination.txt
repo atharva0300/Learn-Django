@@ -1,0 +1,29 @@
+1. checking django version -> python -m django --version
+2. creating a django project -> django-admin startproject mysite,
+where 'mysite' is the name of the project. The 
+
+/*
+mysite/
+    manage.py
+    mysite/
+        __init__.py
+        settings.py
+        urls.py
+        asgi.py
+        wsgi.py
+*/
+mysite -> container of the project 
+manage.py -> this is the command utility thats helps in interacting with the django project. It is used in place of django-admin
+__init__.py -> tells python that this directory should be considered as a python package
+mysite -> this is a actual project ( name of the app -> mysite ), the inner mysite 
+settings.py -> the settings/configuration of the app ( not the project ) like installed apps, middlewares, static files, wsgi, templates, databases
+auth password validators.
+urls.py -> This file maps all the urls of the project. This is the place where the urls are defined.
+asgi.py -> entry point for asgi web servers 
+wsgi.py -> entry point for wsgi web servers
+
+3. running the project -> python manage.py runserver
+Default port -> 8000 on the localhost
+can also change the port -> python manage.py runserver 0.0.0.0:8001
+
+4. view.py is the file that has the data which will be displayed.

@@ -1,0 +1,9 @@
+1. polls is the name of the app
+2. The path() function contains the 4 parameters 
+    => route, views, kwargs, name
+    => 1. route is the string that contians the urls patterns. It compares the pattern in the 
+        urlspatterns from the urls.py file in the app.  In a request to https://www.example.com/myapp/?page=3, the URLconf will also look for myapp/.
+    => 2. when django finds the matching pattern from the urlpatterns, it calls the specified view function from the views.py file 
+        with an HttpResponse object as the first argument and any captured values from the route as keyword arguments.
+    => 3. kwargs -> arbritary keywords arguments ( dictionary ) can be passed
+    => 4. name -> this means naming the url. This helps identify the webpage, determining the template 
