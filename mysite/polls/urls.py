@@ -9,11 +9,16 @@ from . import views
 # the '.', means the current durectory, so views.py is inside the same directory as urls.py ( of the app ), so
 # we use teh '.' 
 
+app_name = 'polls'
+# when django, finds the polls urls in the mysite/urls, it will find  the namespace = 'polls'
+# so, initializing the app_name = 'polls', will make it verify, that this urls is of the polls app
+
+
 urlpatterns = [
-    path("" , views.index , name = "index"),
-    path("<int:question_id>/" ,views.detail , name = "detail"),
-    path("<int:question_id>/results/" , views.result , name = "result"),
-    path("<int:question_id>/votes/" , views.vote , name = "vote")
+    path("" , views.IndexView.as_view() , name = "index"),
+    path("<int:pk>/" ,views.DetailView.as_view() , name = "detail"),
+    path("<int:pk>/results/" , views.ResultsView.as_view() , name = "result"),
+    path("<int:question_id>/vote/" , views.vote , name = "vote")
 ]
 
 # the path() function has 3 paramters 
