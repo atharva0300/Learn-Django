@@ -26,7 +26,17 @@ wsgi.py -> entry point for wsgi web servers
 Default port -> 8000 on the localhost
 can also change the port -> python manage.py runserver 0.0.0.0:8001
 
-4. view.py is the file that has the data which will be displayed.
+4. A view is a “type” of web page in your Django application that generally serves a specific function and has a specific template.
+    In Django, web pages and other content are delivered by views. Each view is represented by a Python function (or method, in the case of class-based views). 
+    Django will choose a view by examining the URL that’s requested (to be precise, the part of the URL after the domain name).
+
+    Each view is responsible for doing one of two things: returning an HttpResponse object containing the content for the requested page, or raising an exception such as Http404. The rest is up to you.
+
+    Your view can read records from a database, or not. It can use a template system such as Django’s – or a third-party Python template system – or not. It can generate a PDF file, output XML, create a ZIP file on the fly, anything you want, using whatever Python libraries you want.
+
+    All Django wants is that HttpResponse. Or an exception.
+
+
 
 5. default configurations of django uses SQLite as the database. If you want to use any other database like -> postgresql, oracle, mysql then
     you can edit the settings.py file and change the ENGINE and the NAME and install the appropriate database binding

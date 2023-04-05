@@ -10,7 +10,10 @@ from . import views
 # we use teh '.' 
 
 urlpatterns = [
-    path("" , views.index , name = "index")
+    path("" , views.index , name = "index"),
+    path("<int:question_id>/" ,views.detail , name = "detail"),
+    path("<int:question_id>/results/" , views.result , name = "result"),
+    path("<int:question_id>/votes/" , views.vote , name = "vote")
 ]
 
 # the path() function has 3 paramters 
