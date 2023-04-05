@@ -27,3 +27,28 @@ Default port -> 8000 on the localhost
 can also change the port -> python manage.py runserver 0.0.0.0:8001
 
 4. view.py is the file that has the data which will be displayed.
+
+5. default configurations of django uses SQLite as the database. If you want to use any other database like -> postgresql, oracle, mysql then
+    you can edit the settings.py file and change the ENGINE and the NAME and install the appropriate database binding
+
+6. INSTALLED_APPS -> By default 
+    1. admin -> The admin site
+    2. auth -> the authentication system
+    3. contenttypes -> A framework for contenttypes
+    4. sessions -> a session framework 
+    5. messages -> a messsaging framework 
+    6. statisfles -> The framework to manage static files
+
+7. MIGRATE command -> migrate command looks at the installed_apps settings and creates an appropriate database table according to 
+    the settings.py file and the database migrations are shifted to the app. This creates a db.sqlie3 file ( if using sqlite )
+
+8. to use the django shell, run the python manage.py shell command
+
+9. Django-admin : Generating admin sites for your staff or clients to add, change, and delete content is 
+    tedious work that doesn’t require much creativity. For that reason, Django entirely automates creation of admin 
+    interfaces for models.
+
+9. Making the polls app modifiable in the admin : 
+    we need to tell the admin that, there is a Question model, so that it can modify it 
+    do it by adding admin.site.register(Question) in the polls/admin.py 
+
