@@ -1,3 +1,60 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+
+# importing django authentication 
+from django.contrib.auth import authenticate , login , logout
+from django.contrib import messages
+
+from django.http import HttpResponse
+
 
 # Create your views here.
+def home(request) : 
+    # check to see if a person is loggin in
+    if(request.method=="POST") : 
+
+        # getting the data filled in the form 
+        username = request.POST['username']
+        password = request.POST['password']
+
+        # authenticate the user 
+        user = authenticate(request , username = username  , password = password)
+        # passing the username and the password into the authenticate function
+
+        if(user is not None ) :
+            # if there is a user present 
+            # then 
+            login(request , user)
+            # login the user 
+            # ie- setting the user as loggin
+            # the user ( which contains the authenticated username and password ) is passed to the login function
+            messages.success(request , 'You have been Loggedin!')
+            print('There is an error logging in')
+            return redirect('home')
+            # redirect the page to the homepage  
+        
+        else : 
+            # if the user is not present, then 
+            messages.success(request , 'There was an error in logging in')
+            return redirect('home')
+
+    
+    return render(request , 'home.html' , {})
+
+    # flash up a form if the user is not logged in
+    # else, if logged in -> then show the crm
+
+
+# view for logout 
+def logout_user(request) : 
+    # logging out the user
+
+    # only appear the logout, when the user is loggedin
+    # else no 
+    logout(request)
+    messages.success(request, "You have been logged out")
+    return redirect('home')
+
+
+# for registering the user 
+def register_user(request) : 
+    return render(request , 'register.html' , {})
