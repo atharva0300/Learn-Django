@@ -6,6 +6,9 @@ from django.contrib import messages
 
 from django.http import HttpResponse
 
+# importing the form 
+from .forms import SignUpForm
+
 
 # Create your views here.
 def home(request) : 
@@ -57,4 +60,35 @@ def logout_user(request) :
 
 # for registering the user 
 def register_user(request) : 
-    return render(request , 'register.html' , {})
+    # checking if it is a post method 
+    if (request.method == 'POST') : 
+        form = SignUpForm(request.POST)
+        # passing the data of the request form 
+        # to the SignUpForm class
+        # it get's initialized 
+
+        if form.is_valid() : 
+            form.save()
+            # authenticate and login 
+            username = form.cleaned_data['username']
+            # form.cleaned_data takes the data from the form
+            # and provides the username 
+
+            password = form.cleaned_data['password']
+            # the password gets initialized to 
+            # password1 in the SIgnUpForm 
+
+            user = authenticate(username = username , password = password)
+            login(request , user)
+
+            messages.success(request , "You have successfully registered")
+
+            return redirect('home')
+        
+        else : 
+            form = SignUpForm()
+            # taking the SignUpForm and passing it
+            return render(request , 'register.html' , {'form' : form})
+            # passing the context as the form
+
+    return render(request , 'register.html' , {'form' : form})

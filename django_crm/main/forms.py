@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 # for the user model
 
 # importing django forms 
-from django.forms import forms
+from django import forms
 
 
 # class for signup class 
@@ -19,15 +19,15 @@ class SignUpForm(UserCreationForm) :
 
 
 
-    first_name = forms.CharField(label = "" , max_length = 100 , widget = forms.TextInput(attrs = {'class' : 'form-control' , 'placeholder' : 'Email Address'})    )
+    first_name = forms.CharField(label = "" , max_length = 100 , widget = forms.TextInput(attrs = {'class' : 'form-control' , 'placeholder' : 'First Name'})    )
     # the max_length is the max length of the charaters in the input field 
 
 
-    last_name = forms.CharField(label = "" , max_length = 100 , widget = forms.TextInput(attrs = {'class' : 'form-control' , 'placeholder' : 'Email Address'}))
+    last_name = forms.CharField(label = "" , max_length = 100 , widget = forms.TextInput(attrs = {'class' : 'form-control' , 'placeholder' : 'Last Name'}))
 
 
     class Meta : 
-        model  =User
+        model  = User
         # model is set to the User model
 
         fields = ('username' , 'first_name' , 'last_name' , 'email' , 'password1' , 'password2') 

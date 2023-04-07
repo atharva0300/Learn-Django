@@ -2,6 +2,30 @@
 
 {% block content %}
 
+<div class = "col-md-6 offset-md-3">
+
+
 <h1>Register</h1>
+<br/>
+
+<form method = "post" action = "">
+    {% csrf_token %}
+
+    {% if form.has_errors %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        There was an error in Registering. Please try again.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    {% endif %}
+
+    {{ form.as_p }}
+
+    <br/>
+    <button type= "submit" class = "btn btn-secondary">Register</button>
+</form>
+
 
 {% endblock %}
