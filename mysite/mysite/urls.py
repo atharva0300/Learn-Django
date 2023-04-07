@@ -21,8 +21,11 @@ from django.urls import path , include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('polls/' , include("polls.urls" , namespace="polls"))
+    path('polls/' , include("polls.urls" , namespace="polls")),
     # use namespace to identify app
     # after that, add app_name in the polls/urls.py file and set it to the value which is set here 
     # for the namespace
+
+    # url for social auth app django
+    path('social_auth/', include('social_django.urls', namespace='social'))
 ]

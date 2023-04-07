@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # social auth app django 
+    'social_django'
 ]
 
 MIDDLEWARE = [
@@ -63,6 +66,10 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                # social_auth_app_django context processors
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -122,3 +129,22 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# adding authentication backend for social_auth_app_django
+AUTHENTICATION_BACKENDS = (
+
+    #'social_core.backends.open_id.OpenIdAuth',
+    #'social_core.backends.google.GoogleOpenId',
+    #'social_core.backends.google.GoogleOAuth2',
+    #'social_core.backends.google.GoogleOAuth',
+    #'social_core.backends.twitter.TwitterOAuth',
+    #'social_core.backends.yahoo.YahooOpenId',
+
+    # we add the below line because we are using the app django.contrib.auth
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+# Facebook key and secret
+SOCIAL_AUTH_FACEBOOK_KEY = "904653114142269"
+SOCIAL_AUTH_FACEBOOK_SECRET = "4eb7b6f09188750c5be08d500a0fab2c"

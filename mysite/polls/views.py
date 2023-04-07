@@ -161,3 +161,7 @@ By default, the DetailView generic view uses a template called <app name>/<model
 
 Similarly, the ListView generic view uses a default template called <app name>/<model name>_list.html; we use template_name to tell ListView to use our existing "polls/index.html" template.
 """
+
+
+def login(request) : 
+    return render(request , 'polls/login.html')
