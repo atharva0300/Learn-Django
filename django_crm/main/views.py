@@ -206,3 +206,4 @@ def update_record(request , pk) :
         # if not authenticated
         messages.success(request , "You must be loggedin")
         return redirect('home')
+
