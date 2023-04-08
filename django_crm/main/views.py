@@ -9,9 +9,25 @@ from django.http import HttpResponse
 # importing the form 
 from .forms import SignUpForm
 
+# importing the Records model
+from .models import Record
+
+from .forms import AddRecordForm
+
+
 
 # Create your views here.
 def home(request) : 
+
+    records = Record.objects.all()
+    # getting all the data from the Record
+
+    # if the user is not POSTing, then the 
+    # user is logged in 
+    # and we want to display the data 
+
+
+
     # check to see if a person is loggin in
     if(request.method=="POST") : 
 
@@ -40,8 +56,8 @@ def home(request) :
             messages.success(request , 'There was an error in logging in')
             return redirect('home')
 
-    
-    return render(request , 'home.html' , {})
+    else : 
+        return render(request , 'home.html' , {'records' : records})
 
     # flash up a form if the user is not logged in
     # else, if logged in -> then show the crm
@@ -92,3 +108,101 @@ def register_user(request) :
             # passing the context as the form
 
     return render(request , 'register.html' , {'form' : form})
+
+
+def customer_record(request , pk ) : 
+    # the primary key will be taken from the url
+    if request.user.is_authenticated : 
+        # cehecking if the user is authenticated or not 
+        # request.user gives the user 
+
+
+        # let us look up that record
+        customer_record = Record.objects.get(id = pk)
+        # getting the record which has the pk mentioned 
+
+        return render(request , 'record.html' , {'customer_record' : customer_record})
+
+    else : 
+        # if the user is not authenticated 
+        messages.success(request , "You must be logged in to view that page")
+        return redirect('home')
+
+
+
+def delete_record(request , pk) :
+    # deleting the record
+
+    if request.user.is_authenticated : 
+
+        deleteit = Record.objects.get(id = pk)
+        # get the record with the pk
+
+        deleteit.delete()
+        # deletes the record from the database
+
+        messages.success(request , "Record deleted successfully")
+
+        return redirect('home')
+
+    else: 
+        # if the user is not logged in 
+        # then
+        messages.success(request , "You cannot delete the record as you are not logged in")
+
+        return redirect('home')
+    
+
+def add_record(request) : 
+    # check if the user is authenticated 
+    if request.user.is_authenticated : 
+
+        form = AddRecordForm(request.POST or None)
+        
+        if request.method == 'POST' : 
+            # is the form valid ? 
+            if form.is_valid() : 
+                add_record = form.save()
+
+                messages.success(request , "Record Added...")
+                return redirect('home')
+
+        else : 
+
+            return render(request , 'add_record.html' , {'form' : form})
+    
+    else : 
+
+        # if not authenticated 
+        messages.success(request , "You must be loggedin")
+        return redirect('home')
+    
+
+
+def update_record(request , pk) :
+    # updating the record
+
+    if request.user.is_authenticated : 
+
+        current_record = Record.objects.get(id = pk)
+        # getting the data of the pk record from the database
+
+        # populating the form with the data taken from the database 
+        # we initializer the instance to current_record
+        form =  AddRecordForm(request.POST or None , instance = current_record)
+
+        if form.is_valid() : 
+            # if they have posted 
+
+            form.save()
+            # save the form
+
+            messages.success(request , "Record has been updated")
+            return redirect('home')
+
+        return render(request , 'update_record.html' , {'form' : form})
+    
+    else : 
+        # if not authenticated
+        messages.success(request , "You must be loggedin")
+        return redirect('home')

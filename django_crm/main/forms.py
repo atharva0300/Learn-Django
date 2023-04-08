@@ -7,6 +7,9 @@ from django.contrib.auth.models import User
 # importing django forms 
 from django import forms
 
+# importing the Record model 
+from .models import Record
+
 
 # class for signup class 
 class SignUpForm(UserCreationForm) : 
@@ -55,3 +58,24 @@ class SignUpForm(UserCreationForm) :
             self.fields['password2'].label = ''
             self.fields['password2'].help_text = '<span class="form-text text-muted"><small>Enter the same password as before, for verification.</small></span>'	
 
+
+
+# creating a form for adding record 
+class AddRecordForm(forms.ModelForm) :
+    first_name = forms.CharField(max_length=50 , required=True , widget = forms.widgets.TextInput(attrs = {'placeholder' : 'First Name' , 'class' : 'form-control'}) , label = '')
+    last_name = forms.CharField(max_length=50 , required=True , widget = forms.widgets.TextInput(attrs = {'placeholder' : 'Last Name' , 'class' : 'form-control'}) , label = '')
+    email =forms.CharField(max_length=50 , required=True , widget = forms.widgets.TextInput(attrs = {'placeholder' : 'Email' , 'class' : 'form-control'}) , label = '')
+    phone = forms.CharField(max_length=50 , required=True , widget = forms.widgets.TextInput(attrs = {'placeholder' : 'Phone' , 'class' : 'form-control'}) , label = '')
+    address = forms.CharField(max_length=100 , required=True , widget = forms.widgets.TextInput(attrs = {'placeholder' : 'Address' , 'class' : 'form-control'}) , label = '')
+    city = forms.CharField(max_length=50 , required=True , widget = forms.widgets.TextInput(attrs = {'placeholder' : 'City' , 'class' : 'form-control'}) , label = '')
+    state = forms.CharField(max_length=50 , required=True , widget = forms.widgets.TextInput(attrs = {'placeholder' : 'State' , 'class' : 'form-control'}) , label = '')
+    zipcode = forms.CharField(max_length=50 , required=True , widget = forms.widgets.TextInput(attrs = {'placeholder' : 'Zipcode' , 'class' : 'form-control'}) , label = '')
+
+
+    # set up the class of Meta 
+    # and designate which model to use 
+    class Meta : 
+        model = Record
+
+        # designating the field
+        exclude = ("user" ,)
