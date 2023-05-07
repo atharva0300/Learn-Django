@@ -128,7 +128,7 @@ def student_list1(request) :
 
 
 
-def student_list(request) : 
+def student_list2(request) : 
    
     item1 = Student.objects.filter(classroom = 2).only('firstname' , 'age')
     # obtain all the records with classroom=2 and get their firstnames and age only 
@@ -179,5 +179,71 @@ def student_list(request) :
     # values_list is similar to values, just instead of returning a dictionry it returns a tuple when itearted over
     print(posts)
     print('\nconnection.queries : ' , connection.queries)
+
+    return render(request , 'output.html' , {'posts' : posts})
+
+
+def dictfetchall(cursor) : 
+    # takes the SQL output and converts it into Python dictionary
+    desc = cursor.description
+    return[
+        dict(zip([col[0] for col in desc] , row ))
+        for row in cursor.fetchall()
+    ]
+
+
+def student_list3(request) :
+    # bringing the cursor 
+    cursor = connection.cursor()    # obtaining the cursor from connection
+    cursor.execute("SELECT count(*) FROM students_student")      # the query to be executed
+    r = cursor.fetchone()   # fetched one value 
+    # This code is bypassing the ORM and performing SQL directly 
+
+    cursor = connection.cursor()    # obtaining the cursor from connection
+    cursor.execute("SELECT * FROM students_student")      # the query to be executed
+
+    r2 = cursor.fetchall()
+    
+    cursor = connection.cursor()    # obtaining the cursor from connection
+    cursor.execute("SELECT * FROM students_student")      # the query to be executed
+
+    r3 = dictfetchall(cursor)
+
+    for i in r3 : 
+        print(i)
+
+    print("r : " , r)
+
+    posts = [{
+        'r ' : r
+    },
+    {
+        'r fetchall()' : r2
+    },
+    {
+        'f2 dict fetch all function ' : r3
+    }
+    ]
+    print(posts)
+ 
+    # print(posts.query)  # the actual SQL query which was used to perform the operations 
+
+    print('cononection.queries : ' , connection.queries)   # actual SQL query with the amount of time it took to execute the code
+
+
+    return render(request , 'output.html' , {'posts' : posts})
+
+
+
+def student_list(request) :
+
+
+    posts = []
+    print(posts)
+ 
+    # print(posts.query)  # the actual SQL query which was used to perform the operations 
+
+    print('cononection.queries : ' , connection.queries)   # actual SQL query with the amount of time it took to execute the code
+
 
     return render(request , 'output.html' , {'posts' : posts})
